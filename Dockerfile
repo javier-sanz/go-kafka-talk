@@ -1,4 +1,4 @@
-FROM golang:1.11.0-alpine3.8
+FROM golang:1.11.2-alpine3.8
 
 ARG LIBRESSL_VERSION=1.1
 ARG LIBRDKAFKA_VERSION=0.11.6-r1
