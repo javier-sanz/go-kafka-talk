@@ -96,7 +96,12 @@ func main() {
 		"session.timeout.ms":              6000,
 		"go.events.channel.enable":        true,
 		"go.application.rebalance.enable": true,
-		"default.topic.config":            kafka.ConfigMap{"auto.offset.reset": "earliest"}})
+		"enable.auto.commit":              false,
+		"default.topic.config": kafka.ConfigMap{
+			"auto.offset.reset":   "earliest",
+			"offset.store.method": "broker",
+		},
+	})
 
 	if err != nil {
 		log.Printf("Failed to create consumer: %s\n", err)
@@ -164,13 +169,19 @@ func main() {
 				log.Printf("%% Error: %v\n", e)
 			}
 		case <-commitTicker.C:
-			transaction.Commit()
+			err := transaction.Commit()
+			if err != nil {
+				log.Printf("DB commit error %s, reseting window", err.Error())
+				break
+			}
 			transaction, err = dbConn.Begin()
 			if err != nil {
-				log.Printf("DB transaction error %s", err.Error())
+				log.Printf("DB transaction error %s, reseting window", err.Error())
 				panic(err.Error())
 			}
 			stmt = getStatement(transaction)
+			// Commiting offsets
+			c.Commit()
 		}
 	}
 
