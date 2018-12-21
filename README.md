@@ -31,7 +31,7 @@ Creating go-kafka-talk_tabix_1 ... done
 Creating go-kafka-talk_clickhouse_1 ... done
 ```
 
-There are to branches to use for the demo: 'autoCommit' and 'master'. Both demos are run with same commands. So regardless the branch create two docker shells as follows:
+There are to branches to use for the demo: 'autoCommitExample' and 'master'. Both demos are run with same commands. So regardless the branch create two docker shells as follows:
 
 ```console
 go-kafka-talk git:(master) ✗ docker exec -it go-kafka-talk_build_1  bash
