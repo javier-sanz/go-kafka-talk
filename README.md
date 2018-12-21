@@ -67,3 +67,10 @@ DRAW_CHART
 }
 ```
 
+If your are on the `autoCommitExample` branch you should be seeing some discontinuities on the messages flow like
+
+![Autocommit issue](https://github.com/javier-sanz/go-kafka-talk/raw/master/autoCommit.png)
+
+but if you on the other hand on master the line should be straight
+
+![Manual commit](https://github.com/javier-sanz/go-kafka-talk/raw/master/manualCommit.png)
