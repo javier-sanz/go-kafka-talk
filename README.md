@@ -53,7 +53,7 @@ go run consumerExample/consumer.go kafka:9092 testGroup test "tcp://clickhouse:9
 
 From time to time kill the consumer and star over again. Open a browser and go to http://localhost:8081/#!/login. For connecting to clickhouse use this url http://127.0.0.1:8123 and connect using the default login (see below image) and no password.
 
-![Clickhouse Connection](https://github.com/javier-sanz/go-kafka-talk/raw/master/redashClickhouse.png)
+![Clickhouse Connection](https://github.com/javier-sanz/go-kafka-talk/raw/master/tabixLogin.png)
 
 Once inside type in the next code on the query window:
 
