@@ -35,7 +35,7 @@ services:
   build:
     image: javiersanz/go-kafka-talk:master
     volumes:
-      - $GOPATH/src:/go/src
+      - $PWD:/outOfGoPath
     command: bash
     stdin_open: true
     tty: true
