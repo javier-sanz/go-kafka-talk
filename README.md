@@ -6,18 +6,18 @@ on how to Use `Apache Kafka From Go Language`. The slides can be found [here](ht
 ## Basic consumer and producer examples
 
 - `Examples.java`: on this file there some examples on how to create producers in Java (no consumer though). There are synchronous and asynchronous examples. 
-- `confluentExamples`: on that folder there are examples of both of consumers and producers and both asynchronous and synchronous. All them are coming from [confluent-kafka-go](https://github.com/confluentinc/confluent-kafka-go)
+- `confluentExamples`: on that folder there are examples of both: consumers and producers. On every of them there is an asynchronous version and a synchronous. All them are coming from [confluent-kafka-go](https://github.com/confluentinc/confluent-kafka-go)
 
 ## Run the example
 
 In order to run the example several dependencies are needed. In order to ease that process there is a `docker-compose.yml` that starts everything needed to run the demo.
-So basically the only dependency is to have docker installed locally. The images that compose will start up are:
+So basically the only dependency is to have docker installed locally. The images that docker-compose will start up are:
 
 - `wurstmeister/kafka:2.11-1.1.1`: kafka broker
 - `zookeeper:3.4.11`: kafka dependency for several distributed services
-- `javiersanz/go-kafka-talk:master`: this image contains all the necessary dependencies to run the consumer & producer example (go 1.11 with modules ready and librdkafka). The Dockerfile inside the project folder was the one used to create that image.
+- `javiersanz/go-kafka-talk:master`: this image contains all the necessary dependencies to run the consumer & the producer example (go 1.11 with modules ready and librdkafka). The Dockerfile inside the project folder was the one I used to create that image in case you are curious.
 - `yandex/clickhouse-server`: a database where messages will be stored
-- `spoonest/clickhouse-tabix-web-client`: a web client for Clickhouse to plot some charts
+- `spoonest/clickhouse-tabix-web-client`: a web client for Clickhouse database to plot some charts
   
 So you can start the demo with docker compose inside de project folder:
 
@@ -31,7 +31,7 @@ Creating go-kafka-talk_tabix_1 ... done
 Creating go-kafka-talk_clickhouse_1 ... done
 ```
 
-There are to branches to use for the demo: 'autoCommitExample' and 'master'. Both demos are run with same commands. So regardless the branch create two docker shells as follows:
+There are to branches to use for the demo: `autoCommitExample` and `master`. Both demos are run with same commands. So regardless the branch create two docker shells as follows:
 
 ```console
 go-kafka-talk git:(master) ✗ docker exec -it go-kafka-talk_build_1  bash
@@ -45,13 +45,13 @@ Once inside go to `/outOfGoPath/` folder where the volume with the code is mount
 bash-4.4# go run producerExample/producer.go kafka:9092 test
 ```
 
-and
+and now the consumer
 
 ```console
 go run consumerExample/consumer.go kafka:9092 testGroup test "tcp://clickhouse:9000?username=default"
 ```
 
-From time to time kill the consumer and star over again. Open a browser and go to http://localhost:8081/#!/login. For connecting to clickhouse use this url http://127.0.0.1:8123 and connect using the default login (see below image) and no password.
+From time to time kill the consumer and star over again. Open a browser and go to http://localhost:8081/#!/login. For connecting to Clickhouse use this url http://127.0.0.1:8123 and connect using the default login (see below image) and no password.
 
 ![Clickhouse Connection](https://github.com/javier-sanz/go-kafka-talk/raw/master/tabixLogin.png)
 
@@ -71,6 +71,6 @@ If your are on the `autoCommitExample` branch you should be seeing some disconti
 
 ![Autocommit issue](https://github.com/javier-sanz/go-kafka-talk/raw/master/autoCommit.png)
 
-but if you on the other hand on master the line should be straight
+but on the other hand if you are running master the line should be straight
 
 ![Manual commit](https://github.com/javier-sanz/go-kafka-talk/raw/master/manualCommit.png)
